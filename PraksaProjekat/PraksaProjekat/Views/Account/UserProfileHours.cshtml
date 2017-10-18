@@ -1,0 +1,67 @@
+﻿@model List<PraksaProjekat.Models.MonthlyHours>   
+    <div class="panel panel-heading">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover ">
+                        <tr>
+                            <th>
+                                Month
+                            </th>
+                            <th>
+                                Hours
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Hours)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                <div id='Paging' style="text-align: center">
+                    <div class="text-center col-lg-12">Page @ViewBag.Page of @ViewBag.PageCount</div>
+                    <ul class="pagination">
+                        <li>
+                            
+                            
+                        </li>
+                        @if (ViewBag.Page > 1)
+                        {
+                            <li>
+                                @Ajax.ActionLink("Back", "UserProfileHours", "Account", new { page = ViewBag.Page - 1 }, new AjaxOptions { UpdateTargetId = "hoursSection" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="disabled">
+                                <a>Back</a>
+                            </li>
+                        }
+                        @if (ViewBag.PageCount > ViewBag.Page)
+                        {
+                            <li>
+                                @Ajax.ActionLink("Next", "UserProfileHours", "Account", new { page = ViewBag.Page + 1 }, new AjaxOptions { UpdateTargetId = "hoursSection" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="disabled">
+                                <a>Next</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

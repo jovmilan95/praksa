@@ -1,0 +1,74 @@
+﻿@model IEnumerable<PraksaProjekat.Models.WorkingHours>
+<div class="panel panel-heading">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover ">
+                    <tr>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Hours
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.ActionLink(item.User.FirstName + " " + item.User.LastName, "UserProfile", "Account", new { id = item.User.UserName }, null)
+                            </td>
+                            <td>
+                                @if (item.Date.Day == DateTime.Now.Day && item.Date.Month == DateTime.Now.Month && item.Date.Year == DateTime.Now.Year)
+                                {
+                                    <span class="text-info"><strong>Today </strong></span>
+                                }
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hours)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div id='Paging' style="text-align: center">
+                <div class="text-center col-lg-12">Page @ViewBag.Page of @ViewBag.PageCount</div>
+                <ul class="pagination">
+
+                    @if(ViewBag.Page > 1 )
+                    {
+                        <li>
+                            @Html.ActionLink("Back","Hours",new {page = ViewBag.Page-1})
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a>Back</a>
+                        </li>
+                    }
+                    @if(ViewBag.PageCount > ViewBag.Page )
+                  {
+                    <li >
+                        @Html.ActionLink("Next", "Hours", new { page = ViewBag.Page + 1 })
+                    </li>
+                  }
+                    else
+                    {
+                        <li class="disabled">
+                            <a>Next</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PraksaProjekat.Models.NotificationEmail>
+
+
+
+<div class="panel panel-heading">
+    <div class="row">
+        <div class="col-md-12 ">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <h4>Email-ovi koji ce primati obavestenja o isteku ugovora</h4>
+        </div>
+            <div class="col-md-12 ">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover ">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>

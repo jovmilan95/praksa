@@ -1,0 +1,47 @@
+﻿@model PraksaProjekat.Models.ContractViewModel
+<div class="panel panel-heading">
+    <div class="row">
+        <div class="col-md-12 ">
+            @using (Html.BeginForm("AddContract", "Account", FormMethod.Post,new{id=ViewBag.UserName, @class = "form-horizontal", role = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                <h4>New contract</h4>
+                <hr />
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.User.UserName, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.User.UserName, (string)@ViewBag.UserName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExpiryDate, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ExpiryDate)
+                            @Html.ValidationMessageFor(model => model.ExpiryDate)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipUgovora, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(x => x.TipUgovora, new List<SelectListItem>
+                                {
+                                    new SelectListItem() {Text = "O radu", Value="O radu"},
+                                    new SelectListItem() {Text = "Honorarni", Value="Honorarni"}
+                                }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TipUgovora)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

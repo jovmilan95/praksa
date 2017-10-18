@@ -1,0 +1,11 @@
+﻿@model PraksaProjekat.Models.Contract
+
+@Html.ActionLink("New contract", "AddContract",  new { id = ViewBag.UserName })
+@if (Model != null)
+{
+        <ul class="list-group" style="border-top:1px solid #999;">
+            <p>@Html.ActionLink("Edit Contract", "EditContract", new { id = Model.Id })</p>
+            <li class="list-group-item">Tip ugovora: <p>@Html.DisplayFor(item => item.TipUgovora)</p></li>
+            <li class="list-group-item">Datum isteka: <p>@Html.DisplayFor(item => item.ExpiryDate, "{0:dd/MM/yyyy}")</p></li>
+        </ul>
+}

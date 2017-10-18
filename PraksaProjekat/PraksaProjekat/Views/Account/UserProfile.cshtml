@@ -1,0 +1,33 @@
+﻿@model PraksaProjekat.Models.ApplicationUser
+<div class="row">
+    <div class=" col-lg-4">
+        <div class="panel panel-default  ">
+            <div class="panel-heading ">
+                <h4>@Model.FirstName @Model.LastName</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Username: <strong>@Model.UserName</strong></li>
+                    <li class="list-group-item">Email: <strong>@Model.Email</strong></li>
+                </ul>
+                <div class="col-lg-12" id="contractSection">
+                    @Html.Action("UserProfileContract", "Account", new { id = Model.UserName })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="col-lg-12" id="hoursSection">
+
+            @Html.Action("UserProfileHours", "Account", new { id = Model.UserName })
+        </div>
+        
+    </div>
+    
+
+</div>
+
+
+
+

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<PraksaProjekat.Models.UserViewModel>
+<div class="panel panel-heading">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover ">
+                    <tr>
+                        <th>
+                            Ime i prezime
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.HoursThisMonth)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.HoursPrevMonth)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastContract.ExpiryDate)
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.FirstName + " " + item.LastName, "UserProfile", "Account", new { id = item.UserName }, null)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HoursThisMonth)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HoursPrevMonth)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastContract.ExpiryDate, new { @class = "text-danger" })
+                                @if (item.LastContract!=null && item.LastContract.ExpiryDate != null)
+                                {
+                                    TimeSpan remtime = item.LastContract.ExpiryDate - DateTime.Now;
+                                    if(remtime.Days<=30 && remtime.Days>=0)
+                                    {
+                                        <p class="text-danger">@remtime.Days days left</p>
+                                    }
+                                    else if(remtime.Days<0)
+                                    {
+                                        
+                                        <p class="text-primary">Expired</p>
+                                    }
+                                }
+                               
+                            </td>
+                            <td>
+                                @if(item.AdminRole==true)
+                                {
+                                    using (Html.BeginForm("AdminRoleRemoveToUser", "Administrator", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
+                                        @Html.Hidden("id", item.UserName)
+                                        <input type="submit" class="btn btn-danger btn-xs" value="Remove Admin Role" onclick="return confirm('Are you sure?')" />
+                                    }
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("AdminRoleAddToUser", "Administrator", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
+                                        @Html.Hidden("id", item.UserName)
+                                        <input type="submit" class="btn btn-default btn-xs" value="Add Admin Role" onclick="return confirm('Are you sure?')" />
+                                    }
+                                }
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
